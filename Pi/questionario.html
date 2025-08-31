@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Questionário Literário</title>
-  <link rel="stylesheet" href="questionario.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
+
   <header>
     <div class="logo">📖 O caminho para o bem-estar</div>
     <nav>
@@ -19,10 +19,15 @@
 
   <main>
     <h1>Questionário</h1>
-    <form>
-      <!-- Cada pergunta representa uma categoria -->
+    <form id="quizForm">
+
+      <!-- ============================
+           Todas as 10 perguntas
+           ============================ -->
+
       <div class="book" data-categoria="historia">
         <div class="page">
+          <h1>Pergunta 1</h1>
           <h3>Qual é o seu posicionamento sobre livros de história ou documentários históricos?</h3>
           <button type="button">Não possuo experiências de leitura.</button>
           <button type="button">Já li alguns livros, porém não curto esse tema.</button>
@@ -33,6 +38,7 @@
 
       <div class="book" data-categoria="ficcao">
         <div class="page">
+          <h1>Pergunta 2</h1>
           <h3>Qual é o seu posicionamento sobre livros de ficção científica?</h3>
           <button type="button">Não possuo experiências de leitura.</button>
           <button type="button">Já li alguns livros, porém não curto esse tema.</button>
@@ -43,6 +49,7 @@
 
       <div class="book" data-categoria="romance">
         <div class="page">
+            <h1>Pergunta 3</h1>
           <h3>O que você acha de livros de romance?</h3>
           <button type="button">Não possuo experiências de leitura.</button>
           <button type="button">Já li alguns livros, porém não curto esse tema.</button>
@@ -53,6 +60,7 @@
 
       <div class="book" data-categoria="poesia">
         <div class="page">
+            <h1>Pergunta 4</h1>
           <h3>Você já leu ou tem interesse em livros de poesia?</h3>
           <button type="button">Não possuo experiências de leitura.</button>
           <button type="button">Já li alguns livros, porém não curto esse tema.</button>
@@ -63,6 +71,7 @@
 
       <div class="book" data-categoria="autoajuda">
         <div class="page">
+            <h1>Pergunta 5</h1>
           <h3>Qual sua opinião sobre livros de autoajuda?</h3>
           <button type="button">Não possuo experiências de leitura.</button>
           <button type="button">Já li alguns livros, porém não curto esse tema.</button>
@@ -73,6 +82,7 @@
 
       <div class="book" data-categoria="aventura">
         <div class="page">
+            <h1>Pergunta 6</h1>
           <h3>Você gosta de livros de aventura?</h3>
           <button type="button">Não possuo experiências de leitura.</button>
           <button type="button">Já li alguns livros, porém não curto esse tema.</button>
@@ -83,6 +93,7 @@
 
       <div class="book" data-categoria="terror">
         <div class="page">
+            <h1>Pergunta 7</h1>
           <h3>Qual sua relação com livros de terror ou suspense?</h3>
           <button type="button">Não possuo experiências de leitura.</button>
           <button type="button">Já li alguns livros, porém não curto esse tema.</button>
@@ -93,6 +104,7 @@
 
       <div class="book" data-categoria="fantasia">
         <div class="page">
+            <h1>Pergunta 8</h1>
           <h3>Você já teve contato com livros de fantasia?</h3>
           <button type="button">Não possuo experiências de leitura.</button>
           <button type="button">Já li alguns livros, porém não curto esse tema.</button>
@@ -103,6 +115,7 @@
 
       <div class="book" data-categoria="biografias">
         <div class="page">
+            <h1>Pergunta 9</h1>
           <h3>O que você acha de biografias?</h3>
           <button type="button">Não possuo experiências de leitura.</button>
           <button type="button">Já li alguns livros, porém não curto esse tema.</button>
@@ -113,6 +126,7 @@
 
       <div class="book" data-categoria="comedia">
         <div class="page">
+            <h1>Pergunta 10</h1>
           <h3>Você gosta de livros de comédia ou sátira?</h3>
           <button type="button">Não possuo experiências de leitura.</button>
           <button type="button">Já li alguns livros, porém não curto esse tema.</button>
@@ -121,12 +135,13 @@
         </div>
       </div>
 
-      <div class="end">
-        <button class="final">Buscar respostas</button>
+      <!-- Navegação -->
+      <div class="navegacao">
+        <button type="button" id="prevBtn">⬅️ Anterior</button>
+        <button type="button" id="nextBtn">➡️ Próxima</button>
       </div>
     </form>
 
-    <!-- Onde o resultado aparece -->
     <div class="resultado" id="resultado">
       <h2>📊 Resultado do Questionário</h2>
       <ul id="lista-respostas"></ul>
@@ -207,12 +222,21 @@
       }
     };
 
-    // ====================
-    // Lógica do questionário
-    // ====================
     const perguntas = document.querySelectorAll(".book");
     let respostas = {};
     let pontuacao = {};
+    let indiceAtual = 0;
+
+    function mostrarPergunta(index) {
+      perguntas.forEach((p, i) => {
+        p.style.display = i === index ? "block" : "none";
+      });
+
+      document.getElementById("prevBtn").style.display = index === 0 ? "none" : "inline-block";
+      document.getElementById("nextBtn").textContent = index === perguntas.length - 1 ? "Ver Resultados" : "➡️ Próxima";
+    }
+
+    mostrarPergunta(indiceAtual);
 
     perguntas.forEach((pergunta, index) => {
       const categoria = pergunta.dataset.categoria;
@@ -221,26 +245,38 @@
       botoes.forEach(botao => {
         botao.addEventListener("click", () => {
           respostas[`Pergunta ${index + 1}`] = botao.textContent;
-
-          // Se for "Gosto bastante dessa categoria de livros", soma ponto
           if (botao.textContent.includes("Gosto bastante")) {
             pontuacao[categoria] = (pontuacao[categoria] || 0) + 1;
           }
 
-          // Visual
-          botoes.forEach(b => b.style.background = "#e0e0e0");
+          botoes.forEach(b => b.style.background = "#f0f0f0");
           botao.style.background = "rgb(249, 115, 22)";
+          botao.style.color = "white";
         });
       });
     });
 
-    const finalBtn = document.querySelector(".final");
-    const resultadoDiv = document.getElementById("resultado");
-    const listaRespostas = document.getElementById("lista-respostas");
-    const recomendacoesDiv = document.getElementById("recomendacoes");
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      if (indiceAtual > 0) {
+        indiceAtual--;
+        mostrarPergunta(indiceAtual);
+      }
+    });
 
-    finalBtn.addEventListener("click", (e) => {
-      e.preventDefault();
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      if (indiceAtual < perguntas.length - 1) {
+        indiceAtual++;
+        mostrarPergunta(indiceAtual);
+      } else {
+        mostrarResultado();
+      }
+    });
+
+    function mostrarResultado() {
+      const listaRespostas = document.getElementById("lista-respostas");
+      const recomendacoesDiv = document.getElementById("recomendacoes");
+      const resultadoDiv = document.getElementById("resultado");
+
       listaRespostas.innerHTML = "";
       recomendacoesDiv.innerHTML = "";
 
@@ -251,8 +287,8 @@
         listaRespostas.appendChild(li);
       }
 
-      // Descobrir categorias favoritas
-      let max = Math.max(...Object.values(pontuacao));
+      // Categorias favoritas
+      let max = Math.max(...Object.values(pontuacao || [0]));
       let favoritas = Object.keys(pontuacao).filter(cat => pontuacao[cat] === max);
 
       favoritas.forEach(cat => {
@@ -268,9 +304,9 @@
         });
       });
 
-      // Crossovers (se houver empate entre duas categorias)
+      // Crossovers
       if (favoritas.length === 2) {
-        let chave = favoritas.sort().join("+"); // ex: "comedia+terror"
+        let chave = favoritas.sort().join("+");
         if (RECOMMENDATIONS.crossovers[chave]) {
           let h3 = document.createElement("h3");
           h3.textContent = `✨ Recomendações especiais (${favoritas.join(" + ")})`;
@@ -287,7 +323,7 @@
 
       resultadoDiv.style.display = "block";
       resultadoDiv.scrollIntoView({ behavior: "smooth" });
-    });
+    }
   </script>
 </body>
 </html>
