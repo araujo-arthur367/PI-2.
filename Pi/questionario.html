@@ -15,10 +15,11 @@
       <a href="#">Questionário</a>
       <a href="#">Sobre nós</a>
     </nav>
+    <div class="IFC"><img src="IFC.png" alt=""></div>
   </header>
 
   <main>
-    <h1>Questionário</h1>
+    <h1 class="q">Questionário</h1>
     <form id="quizForm">
 
       <!-- ============================
@@ -226,7 +227,7 @@
     let respostas = {};
     let pontuacao = {};
     let indiceAtual = 0;
-
+    
     function mostrarPergunta(index) {
       perguntas.forEach((p, i) => {
         p.style.display = i === index ? "block" : "none";
@@ -249,7 +250,7 @@
             pontuacao[categoria] = (pontuacao[categoria] || 0) + 1;
           }
 
-          botoes.forEach(b => b.style.background = "#f0f0f0");
+          botoes.forEach(b => b.style.background = "#00000050");
           botao.style.background = "rgb(249, 115, 22)";
           botao.style.color = "white";
         });
@@ -311,7 +312,7 @@
           let h3 = document.createElement("h3");
           h3.textContent = `✨ Recomendações especiais (${favoritas.join(" + ")})`;
           recomendacoesDiv.appendChild(h3);
-
+          
           RECOMMENDATIONS.crossovers[chave].forEach(livro => {
             let div = document.createElement("div");
             div.classList.add("livro");
@@ -325,5 +326,4 @@
       resultadoDiv.scrollIntoView({ behavior: "smooth" });
     }
   </script>
-</body>
-</html>
+ 
