@@ -1,28 +1,50 @@
 body {
       font-family: Arial, sans-serif;
       margin: 0;
-      background: #f4f4f9;
+      background: rgb(255, 216, 176);
       color: #333;
+      
     }
 
     header {
-      background: rgb(249, 115, 22);
+      background: rgb(255, 135, 22);
       color: white;
       padding: 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+    .IFC {
+        height: 100px;
+        width: 100px;
+        padding: 0px 203px 0px 0px;
+    }
+    .IFC img {
+        width: 100%;
+        height: 100%;
+    }
 
     header .logo {
       font-size: 20px;
       font-weight: bold;
+      background-color: #00000050;
+      padding: 5px;
+      border-radius: 4px;
     }
 
     nav a {
       color: white;
       margin-left: 15px;
       text-decoration: none;
+      background-color: #00000050;
+      padding: 5px;
+      border-radius: 4px;
+      
+    }
+    nav a:hover{
+        color: black;
+        background-color:#00000070;
+        transition: 500ms;
     }
 
     main {
@@ -34,6 +56,12 @@ body {
     h1 {
       text-align: center;
       margin-bottom: 20px;
+    }
+    .q {
+      background-color: #00000050;
+      padding: 5px;
+      border-radius: 4px;
+      
     }
 
     .book {
@@ -47,7 +75,9 @@ body {
     .page h3 {
       margin-bottom: 10px;
     }
-
+    #nextBtn {
+        background-color: rgb(109, 197, 109);
+    }
     button {
       display: block;
       margin: 5px 0;
@@ -58,16 +88,15 @@ body {
       width: 100%;
       background: rgb(249, 115, 22);
       transition: background 0.3s;
-      color: white;
+      color: black;
     }
-
     button:hover {
       background: #ffd000;
     }
 
     .final {
       background: rgb(249, 115, 22);
-      color: white;
+      color: rgb(255, 255, 255);
       font-weight: bold;
       margin-top: 20px;
     }
@@ -97,3 +126,4 @@ body {
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
+    
